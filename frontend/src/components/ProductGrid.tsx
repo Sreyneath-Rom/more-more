@@ -1,3 +1,4 @@
+// src/components/ProductGrid.tsx
 'use client'
 const products = [
   { name: "Coca Cola 330ml", desc: "12 can", price: "$0.25", type: "info", img: "https://www.shutterstock.com/image-photo/tbilisi-georgia-may-29-2024-600nw-2468450965.jpg" },
@@ -18,7 +19,7 @@ const products = [
   { name: "Dasani Water 500ml", desc: "100 btl", price: "$0.25", type: "info", img: "https://www.shutterstock.com/image-photo/columbus-ohusa-september-032019-dasani-600nw-1511530136.jpg" },
   { name: "Dasani Water", desc: "10 case", price: "$5.8", type: "info", img: "https://www.kroger.com/product/images/large/front/0000000064891" },
   { name: "Dasani Water 1.5L", desc: "10 btl", price: "$0.5", type: "info", img: "https://umart.store/cdn/shop/products/Dasani_1.5l_3e4296bd-24f4-47db-a347-438fb20080de_1200x.png?v=1644315772" },
-  { name: "Arabica Coffee Bean", desc: "3.5 kg", price: "$7.45", type: "warning", img: "https://media.istockphoto.com/id/1298959169/photo/coffee-beans-in-a-bag-isolated-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c fUZf6XqV65UQdojh3_YfYcbhGYSYA9nrv1GN7-fWkM4=" },
+  { name: "Arabica Coffee Bean", desc: "3.5 kg", price: "$7.45", type: "warning", img: "https://media.istockphoto.com/id/1298959169/photo/coffee-beans-in-a-bag-isolated-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c%C2%A0fUZf6XqV65UQdojh3_YfYcbhGYSYA9nrv1GN7-fWkM4=" },
   { name: "Sugar", desc: "20 kg", price: "$0.11", type: "warning", img: "https://media.istockphoto.com/id/1388140522/photo/sugar-in-a-sack-isolated-on-a-white-background-white-sugar-in-burlap-sack-cube-sugar-in-jute.jpg?s=612x612&w=0&k=20&c=oPN35scbePjsOHVhGM2Z2xjmYGeT4voypoLHQXfdG7Y=" },
 ];
 
@@ -28,17 +29,26 @@ export default function ProductGrid() {
       {products.map((product) => (
         <div
           key={product.name}
-          className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+          className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
         >
-          <img src={product.img} alt={product.name} className="w-full h-32 object-cover" />
+          {/* Image container with fixed aspect ratio to mimic the UI */}
+          <div className="aspect-square w-full">
+            <img 
+              src={product.img} 
+              alt={product.name} 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+          
           <div className="p-3">
-            <h4 className="font-medium text-sm line-clamp-2">{product.name}</h4>
+            <h4 className="font-medium text-sm line-clamp-2 text-gray-900">{product.name}</h4>
             <p className="text-xs text-gray-500 mt-1">{product.desc}</p>
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center justify-between mt-2">
               <p className={`text-lg font-bold ${product.type === 'info' ? 'text-blue-600' : product.type === 'warning' ? 'text-yellow-600' : 'text-green-600'}`}>
                 {product.price}
               </p>
-              <div className={`w-4 h-4 rounded-full ${product.type === 'info' ? 'bg-blue-500' : product.type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'}`} />
+              {/* Status Dot */}
+              <div className={`w-3 h-3 rounded-full ${product.type === 'info' ? 'bg-blue-500' : product.type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'}`} />
             </div>
           </div>
         </div>
