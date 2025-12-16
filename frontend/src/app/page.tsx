@@ -1,8 +1,8 @@
 "use client";
 
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
-import ProductGrid from "@/components/ProductGrid";
+import Header from "@/components/layout/Header";
+import Sidebar from "@/components/layout/Sidebar";
+import ProductGrid from "@/components/items/ProductGrid";
 import { Plus, Upload, Download, ChevronDown, Circle } from "lucide-react";
 
 export default function ItemListPage() {
