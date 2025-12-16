@@ -1,3 +1,4 @@
+// src/components/items/ItemToolbar.tsx
 import { Plus, Upload, Download } from 'lucide-react';
 
 export default function ItemToolbar() {
@@ -6,18 +7,18 @@ export default function ItemToolbar() {
       <div>
         <h2 className="text-2xl font-semibold">Item List</h2>
         <p className="text-sm text-gray-600">
-          List all your items including products and services
+          List all your items including your products and services
         </p>
       </div>
 
       <div className="flex gap-3">
-        <button className="bg-black text-white px-5 py-3 rounded-full flex items-center gap-2">
+        <button className="bg-black text-white px-5 py-3 rounded-full flex items-center gap-2 font-medium">
           <Plus className="w-4 h-4" /> Add New Item
         </button>
-        <button className="bg-gray-100 px-4 py-3 rounded-full flex gap-2">
+        <button className="bg-gray-100 px-4 py-3 rounded-full flex items-center gap-2">
           <Upload className="w-4 h-4" /> Import
         </button>
-        <button className="bg-gray-100 px-4 py-3 rounded-full flex gap-2">
+        <button className="bg-gray-100 px-4 py-3 rounded-full flex items-center gap-2">
           <Download className="w-4 h-4" /> Export
         </button>
       </div>

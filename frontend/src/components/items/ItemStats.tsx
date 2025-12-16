@@ -1,8 +1,9 @@
+// src/components/items/ItemStats.tsx
+
 export default function ItemStats() {
   return (
     <p className="text-sm text-gray-600 mb-6">
-      Total: <b>120</b> | For Sale: <b>25</b> | Manufacture: <b>25</b> | Combo:{' '}
-      <b>10</b> | Component: <b>10</b>
+      Total: <strong>120</strong> | For Sale: <strong>25</strong> | Manufacture: <strong>25</strong> | Combo: <strong>10</strong> | Component: <strong>10</strong>
     </p>
   );
 }

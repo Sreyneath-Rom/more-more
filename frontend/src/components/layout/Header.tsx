@@ -1,3 +1,4 @@
+// src/components/layout/Header.tsx
 import { Search, Bell, Settings } from 'lucide-react';
 
 export default function Header() {
@@ -23,8 +24,8 @@ export default function Header() {
             <span className="text-xs text-gray-400">⌘ F</span>
           </div>
 
-          <Settings className="w-5 h-5 text-gray-500" />
-          <Bell className="w-5 h-5 text-gray-500" />
+          <Settings className="w-5 h-5 text-gray-500 cursor-pointer" />
+          <Bell className="w-5 h-5 text-gray-500 cursor-pointer" />
 
           <div className="flex items-center gap-2">
             <div className="text-right">

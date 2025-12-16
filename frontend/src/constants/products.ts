@@ -1,19 +1,6 @@
-export const PRODUCTS = [
-  {
-    name: "Coca Cola 330ml",
-    desc: "12 can",
-    price: "$0.25",
-    dot: "bg-blue-500",
-    img: "https://www.shutterstock.com/image-photo/tbilisi-georgia-may-29-2024-600nw-2468450965.jpg",
-  },
-  {
-    name: "Sirloin Beef",
-    desc: "7 kg",
-    price: "$11.5",
-    dot: "bg-yellow-500",
-    img: "https://img.freepik.com/premium-photo/fresh-raw-sirloin-beef-meat-steak-isolated-white-background_89816-46033.jpg",
-  },
+// src/constants/products.ts
 
+export const PRODUCTS = [
   {
     name: "Coca Cola 330ml",
     desc: "12 can",
@@ -50,6 +37,13 @@ export const PRODUCTS = [
     img: "https://media.istockphoto.com/id/1542962325/photo/sourdough-loaf-of-bread-with-pumpkin-seeds-and-slices-close-up-on-white-background.jpg?s=612x612&w=0&k=20&c=9polh4g__i9buwr5aczU86dknPfv2ReOfbuKV7dsVRU=",
   },
   {
+    name: "Beef Meat Pack",
+    desc: "4 packs",
+    price: "$4.5",
+    dot: "bg-blue-500",
+    img: "https://thumbs.dreamstime.com/b/side-view-assorted-raw-beef-products-minced-meat-steaks-sausages-burger-patties-isolated-white-background-340145835.jpg",
+  },
+  {
     name: "Banana (Kg)",
     desc: "6.5 kg",
     price: "$4.5",
@@ -71,11 +65,18 @@ export const PRODUCTS = [
     img: "https://media.istockphoto.com/id/1019835828/photo/mango-and-leaf-isolated-white-background.jpg?s=612x612&w=0&k=20&c=_nmOBzO9mGEitT2rUvO1xAX9jwL5mHYI8AFRbYeyy-A=",
   },
   {
+    name: "Kirisu milk",
+    desc: "10 piece",
+    price: "$4.5",
+    dot: "bg-blue-500",
+    img: "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=731723916397269",
+  },
+  {
     name: "Angkor milk",
     desc: "0 piece",
     price: "$3.5",
     dot: "bg-blue-500",
-    img: "https://media.makrocambodiaclick.com/PRODUCT_1726649987141.jpeg",
+    img: "https://media.makrocambodiaclick.com/PRODUCT_1726650092990.jpeg",
   },
   {
     name: "Banana",
@@ -89,7 +90,7 @@ export const PRODUCTS = [
     desc: "-",
     price: "$3.99",
     dot: "bg-blue-500",
-    img: "https://thumbs.dreamstime.com/b/iced-latte-coffee-drink-glass-refreshing-beverage-isolated-white-background-397770943.jpg",
+    img: "https://static.vecteezy.com/system/resources/previews/070/209/808/non_2x/iced-latte-in-a-glass-isolated-on-white-background-photo.jpeg",
   },
   {
     name: "Mocha Coffee",
@@ -99,7 +100,7 @@ export const PRODUCTS = [
     img: "https://img.freepik.com/premium-photo/white-mug-mocha-coffee-isolated-white-background-file-contains-with-clipping-path-so-easy-work_24076-673.jpg",
   },
   {
-    name: "Cappuccino",
+    name: "Cappuchino",
     desc: "-",
     price: "$4.25",
     dot: "bg-blue-500",
@@ -140,4 +141,4 @@ export const PRODUCTS = [
     dot: "bg-yellow-500",
     img: "https://thumbs.dreamstime.com/b/sugar-sack-isolated-white-background-burlap-cube-jute-bag-243560281.jpg",
   },
-];
+] as const;
