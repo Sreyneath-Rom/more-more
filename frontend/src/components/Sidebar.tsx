@@ -81,9 +81,9 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-gray-200 h-screen">
+    <aside className="hidden lg:flex w-64 flex-col bg-amber-50 h-screen sticky top-0 z-50 shadow-md">
       {/* Decorative Top Shapes */}
-      <div className="p-6 pb-4 flex flex-wrap gap-4 justify-center">
+      <div className="p-6 pb-4 flex flex-wrap gap-2 justify-center shadow rounded-3xl bg-gray-100 m-4">
         <div className="w-12 h-12 bg-green-500/80 rounded-t-full rounded-bl-full" />
         <div className="w-12 h-12 bg-blue-400/80 rounded-br-full rounded-tl-full" />
         <div className="w-12 h-12 bg-yellow-500/80 rounded-full" />
