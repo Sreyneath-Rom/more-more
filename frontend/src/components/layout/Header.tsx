@@ -78,7 +78,7 @@ export default function Header() {
               onClick={() => setOpenUserMenu(!openUserMenu)}
               className="flex items-center gap-3 p-2 rounded-full hover:bg-gray-100/70 transition"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full" />
+              <div className="w-10 h-10 bg-linear-to-br from-orange-400 to-red-500 rounded-full" />
               <div className="text-left hidden sm:block">
                 <p className="text-sm font-semibold text-gray-900">Taing Mengju</p>
                 <p className="text-xs text-gray-500">Cashier</p>
@@ -90,7 +90,7 @@ export default function Header() {
             {openUserMenu && (
               <div className="absolute right-0 top-20 w-72 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200/50 z-50 overflow-hidden">
                 <div className="p-6 border-b border-gray-200/50 text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mx-auto mb-3 shadow-lg" />
+                  <div className="w-20 h-20 bg-linear-to-br from-orange-400 to-red-500 rounded-full mx-auto mb-3 shadow-lg" />
                   <p className="text-lg font-semibold">Taing Mengju</p>
                   <p className="text-sm text-gray-500">Cashier</p>
                 </div>
@@ -117,7 +117,7 @@ export default function Header() {
 
       {/* Mobile Search Overlay */}
       {openMobileSearch && (
-        <div className="fixed inset-0 z-[100] bg-white/95 backdrop-blur-2xl">
+        <div className="fixed inset-0 z-100 bg-white/95 backdrop-blur-2xl">
           <div className="h-16 px-6 flex items-center border-b border-gray-200/50">
             <div className="flex items-center w-full bg-gray-100/70 soft-inset px-6 py-3.5 rounded-full">
               <Search className="w-5 h-5 text-gray-500 mr-3" />

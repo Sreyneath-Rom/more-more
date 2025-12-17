@@ -1,5 +1,7 @@
-/* frontend/src/app/globals.css */
+/* src/app/globals.css */
+
 @import "tailwindcss";
+
 /* Custom variables and styles */
 :root {
   --background: #f5f5f7;
@@ -21,6 +23,7 @@
   }
 }
 
+/* Apply variables directly using arbitrary values (recommended in v4 for better performance) */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -44,15 +47,50 @@ body {
   border-radius: 9999px; /* full pill shape */
 }
 
-/* Pill buttons */
+/* Pill buttons - using direct CSS variables where possible (no @apply needed) */
 .btn-primary {
-  @apply bg-black text-white font-semibold px-7 py-4 rounded-full transition-all active:scale-95 shadow-lg;
+  background: black;
+  color: white;
+  font-weight: 600;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 9999px;
+  transition: all 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.btn-primary:active {
+  transform: scale(0.95);
 }
 
 .btn-secondary {
-  @apply bg-gray-100 text-gray-800 font-medium px-7 py-4 rounded-full hover:bg-gray-200 transition;
+  background: #f3f4f6;
+  color: #1f2937;
+  font-weight: 500;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 9999px;
+  transition: background 0.2s;
+}
+.btn-secondary:hover {
+  background: #e5e7eb;
 }
 
 .btn-ghost {
-  @apply bg-transparent text-gray-700 font-medium px-6 py-3.5 rounded-full border border-gray-300 hover:bg-gray-50 transition;
+  background: transparent;
+  color: #374151;
+  font-weight: 500;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  transition: background 0.2s;
+}
+.btn-ghost:hover {
+  background: #f9fafb;
 }

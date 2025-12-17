@@ -9,7 +9,7 @@ export default function CustomersPage() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-[var(--background)] min-h-screen">
+      <div className="flex-1 flex flex-col bg-(--background) min-h-screen">
         <Header />
 
         <div className="mx-4 sm:mx-6 my-6 soft-card overflow-hidden">

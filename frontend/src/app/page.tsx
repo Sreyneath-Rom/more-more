@@ -13,7 +13,7 @@ export default function ItemListPage() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-[var(--background)] min-h-screen">
+      <div className="flex-1 flex flex-col bg-(--background) min-h-screen">
         <Header />
 
         {/* Main Content Card */}

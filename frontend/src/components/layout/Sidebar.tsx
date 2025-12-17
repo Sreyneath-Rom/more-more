@@ -7,7 +7,7 @@ import {
   Users, Building2, Truck, UserSquare2, UserCheck,
   Wallet, CreditCard, TrendingUp, TrendingDown,
   FileText, Receipt, BarChart3,
-  ChevronDown, Globe, Monitor, Headphones, History, Lock,
+  ChevronDown, MessageSquare, Monitor, Headphones, History, WalletCards,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -151,22 +151,18 @@ export default function Sidebar() {
 
       {/* Bottom Action Bar */}
       <div className="border-t border-gray-200/50 p-6 bg-white/70 backdrop-blur-xl">
-        <div className="flex justify-center gap-5">
+        <div className="flex justify-center gap-2">
           <button className="relative p-4 bg-orange-100/80 text-orange-600 rounded-3xl hover:bg-orange-200/80 transition shadow-md">
-            <Globe className="w-6 h-6" />
+            <MessageSquare className="w-6 h-6" />
             <span className="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full border-3 border-white" />
           </button>
-          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
-            <Monitor className="w-6 h-6 text-gray-600" />
-          </button>
-          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
+          <button className=" flex gap-4 p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
+            <Monitor className="w-6 h-6 text-gray-600" />    
             <Headphones className="w-6 h-6 text-gray-600" />
-          </button>
-          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
             <History className="w-6 h-6 text-gray-600" />
           </button>
           <button className="p-4 bg-green-700 text-white rounded-3xl hover:bg-green-800 transition shadow-lg">
-            <Lock className="w-6 h-6" />
+            <WalletCards className="w-6 h-6" />
           </button>
         </div>
       </div>
