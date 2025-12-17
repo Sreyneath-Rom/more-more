@@ -1,30 +1,13 @@
+// src/components/layout/Sidebar.tsx
 'use client';
 
 import { useState } from 'react';
 import {
-  ShoppingBag,
-  Package,
-  MapPin,
-  DollarSign,
-  Tag,
-  Users,
-  Building2,
-  Truck,
-  UserSquare2,
-  UserCheck,
-  Wallet,
-  CreditCard,
-  TrendingUp,
-  TrendingDown,
-  FileText,
-  BarChart3,
-  Receipt,
-  ChevronDown,
-  Globe,
-  Monitor,
-  Headphones,
-  History,
-  Lock,
+  ShoppingBag, Package, MapPin, DollarSign, Tag,
+  Users, Building2, Truck, UserSquare2, UserCheck,
+  Wallet, CreditCard, TrendingUp, TrendingDown,
+  FileText, Receipt, BarChart3,
+  ChevronDown, Globe, Monitor, Headphones, History, Lock,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -81,52 +64,55 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col bg-amber-50 h-screen sticky top-0 z-50 shadow-md">
-      {/* Decorative Top Shapes */}
-      <div className="p-6 pb-4 flex flex-wrap gap-2 justify-center shadow rounded-3xl bg-gray-100 m-4">
-        <div className="w-12 h-12 bg-green-500/80 rounded-t-full rounded-bl-full" />
-        <div className="w-12 h-12 bg-blue-400/80 rounded-br-full rounded-tl-full" />
-        <div className="w-12 h-12 bg-yellow-500/80 rounded-full" />
+    <aside className="hidden lg:flex w-80 flex-col bg-white/80 backdrop-blur-2xl border-r border-gray-200/30 h-screen sticky top-0 z-50">
+      {/* Top Decorative Area */}
+      <div className="p-8 pb-6">
+        <div className="flex flex-wrap gap-3 justify-center mb-8">
+          <div className="w-14 h-14 bg-green-500 backdrop-blur rounded-t-full rounded-bl-full shadow-inner" />
+          <div className="w-14 h-14 bg-blue-400 backdrop-blur rounded-br-full rounded-tl-full shadow-inner" />
+          <div className="w-14 h-14 bg-yellow-500 backdrop-blur rounded-full shadow-inner" />
+          <div className="w-14 h-14 bg-red-500 backdrop-blur rounded-full shadow-inner" />
+          <div className="w-14 h-14 bg-orange-500 backdrop-blur rounded-full shadow-inner" />
+          <div className="w-14 h-14 bg-red-700 backdrop-blur rounded-t-3xl shadow-inner" />
+        </div>
 
-        <div className="w-12 h-12 bg-red-500/80 rounded-full" />
-        <div className="w-12 h-12 bg-orange-500/80 rounded-full" />
-        <div className="w-12 h-12 bg-red-700/80 rounded-t-2xl" />
+        
       </div>
 
-      <nav className="flex-1 px-4 pb-4 space-y-6 overflow-y-auto">
-        {/* Main Sections */}
+      {/* Navigation */}
+      <nav className="flex-1 px-6 pb-6 space-y-10 overflow-y-auto">
         {sections.map((section) => (
           <div key={section.title}>
             <button
               onClick={() => toggleSection(section.title)}
-              className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2"
+              className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 px-2"
             >
               {section.title}
               <ChevronDown
                 className={cn(
-                  'w-4 h-4 transition-transform',
+                  'w-4 h-4 transition-transform duration-300',
                   expandedSections.includes(section.title) && 'rotate-180'
                 )}
               />
             </button>
 
             {expandedSections.includes(section.title) && (
-              <ul className="space-y-1">
+              <ul className="space-y-2">
                 {section.items.map((item) => (
                   <li key={item.label}>
                     <button
                       className={cn(
-                        'flex w-full items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors',
+                        'flex w-full items-center justify-between px-5 py-3.5 rounded-2xl text-sm font-medium transition-all',
                         item.active
-                          ? 'bg-gray-100 text-orange-600 font-medium'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-black text-white shadow-lg'
+                          : 'text-gray-700 hover:bg-gray-100/70 hover:shadow-md'
                       )}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5" />
                         <span>{item.label}</span>
                       </div>
-                      {item.badge && <span className="w-2 h-2 bg-red-500 rounded-full" />}
+                      {item.badge && <div className="w-2.5 h-2.5 bg-red-500 rounded-full" />}
                     </button>
                   </li>
                 ))}
@@ -135,26 +121,26 @@ export default function Sidebar() {
           </div>
         ))}
 
-        {/* Reports Section */}
+        {/* Reports */}
         <div>
           <button
             onClick={() => toggleSection('REPORTS')}
-            className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2"
+            className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 px-2"
           >
             REPORTS
             <ChevronDown
               className={cn(
-                'w-4 h-4 transition-transform',
+                'w-4 h-4 transition-transform duration-300',
                 expandedSections.includes('REPORTS') && 'rotate-180'
               )}
             />
           </button>
 
           {expandedSections.includes('REPORTS') && (
-            <ul className="space-y-1 pl-6">
+            <ul className="space-y-3 pl-8">
               {reports.map((item) => (
-                <li key={item.label} className="flex items-center gap-3 text-sm text-gray-700 py-1">
-                  <div className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
+                <li key={item.label} className="flex items-center gap-4 text-sm text-gray-600 hover:text-gray-900 transition">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full" />
                   {item.label}
                 </li>
               ))}
@@ -163,24 +149,26 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      {/* Bottom Icons */}
-      <div className="border-t border-gray-200 p-4 flex justify-center gap-4 bg-white">
-        <button className="relative p-3 bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition">
-          <Globe className="w-5 h-5" />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-        </button>
-        <button className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition">
-          <Monitor className="w-5 h-5 text-gray-600" />
-        </button>
-        <button className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition">
-          <Headphones className="w-5 h-5 text-gray-600" />
-        </button>
-        <button className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition">
-          <History className="w-5 h-5 text-gray-600" />
-        </button>
-        <button className="p-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition">
-          <Lock className="w-5 h-5" />
-        </button>
+      {/* Bottom Action Bar */}
+      <div className="border-t border-gray-200/50 p-6 bg-white/70 backdrop-blur-xl">
+        <div className="flex justify-center gap-5">
+          <button className="relative p-4 bg-orange-100/80 text-orange-600 rounded-3xl hover:bg-orange-200/80 transition shadow-md">
+            <Globe className="w-6 h-6" />
+            <span className="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full border-3 border-white" />
+          </button>
+          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
+            <Monitor className="w-6 h-6 text-gray-600" />
+          </button>
+          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
+            <Headphones className="w-6 h-6 text-gray-600" />
+          </button>
+          <button className="p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
+            <History className="w-6 h-6 text-gray-600" />
+          </button>
+          <button className="p-4 bg-green-700 text-white rounded-3xl hover:bg-green-800 transition shadow-lg">
+            <Lock className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </aside>
   );

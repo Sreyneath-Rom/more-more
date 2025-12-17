@@ -4,8 +4,8 @@ export default function PageContainer({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-amber-50">
-      {children}
+    <div className="mx-6 my-4 bg-white rounded-3xl shadow-sm overflow-hidden">
+      <div className="p-8">{children}</div>
     </div>
   );
 }
