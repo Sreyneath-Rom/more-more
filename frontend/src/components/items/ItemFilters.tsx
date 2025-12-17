@@ -1,20 +1,37 @@
-// src/components/items/ItemFilters.tsx
+import { Search, MoreHorizontal, Plus } from "lucide-react";
+
 export default function ItemFilters() {
   return (
-    <div className="flex flex-wrap gap-4 items-center mb-8">
-      <input
-        type="text"
-        placeholder="Product ID, Name, Barcode..."
-        className="px-6 py-4 rounded-full border border-gray-300 soft-inset w-full max-w-lg text-base outline-none focus:border-blue-500 transition"
-      />
+    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div className="flex items-center gap-3">
+        <button className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 text-gray-400">
+          <MoreHorizontal className="w-4 h-4" />
+        </button>
 
-      <button className="bg-blue-100 text-blue-700 px-7 py-4 rounded-full font-medium">
-        Category 3 selected
-      </button>
+        <div className="relative w-64">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input
+            placeholder="Product ID, Name, Barcode..."
+            className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-xs focus:outline-none focus:ring-2 focus:ring-blue-100"
+          />
+        </div>
 
-      <button className="btn-ghost">
-        + All filter
-      </button>
+        <div className="flex items-center gap-2 bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full text-[11px] font-bold border border-blue-100">
+          Category 3 selected <span className="cursor-pointer">×</span>
+        </div>
+
+        <button className="text-blue-500 text-[11px] font-bold flex items-center gap-1">
+          <Plus className="w-3 h-3" /> All filter
+        </button>
+      </div>
+
+      <div className="flex items-center gap-3 text-[11px] text-gray-400 font-bold">
+        <span>Total: <b className="text-gray-900">120</b></span>
+        <div className="w-px h-3 bg-gray-200" />
+        <span className="text-blue-500">For Sale: <b className="text-gray-900">25</b></span>
+        <div className="w-px h-3 bg-gray-200" />
+        <span className="text-blue-500">Manufacture: <b className="text-gray-900">25</b></span>
+      </div>
     </div>
   );
 }

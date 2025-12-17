@@ -7,16 +7,14 @@ import {
   Users, Building2, Truck, UserSquare2, UserCheck,
   Wallet, CreditCard, TrendingUp, TrendingDown,
   FileText, Receipt, BarChart3,
-  ChevronDown, MessageSquare, Monitor, Headphones, History, WalletCards,
+  ChevronDown, MessageCircle, Monitor, Headphones, Clock, WalletCards
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Sidebar() {
   const [expandedSections, setExpandedSections] = useState<string[]>([
     'PRODUCT & SERVICE',
-    'PEOPLE',
-    'MONEY',
-    'REPORTS',
+    // 'PEOPLE', 'MONEY', 'REPORTS' — uncomment if you want them expanded by default
   ]);
 
   const toggleSection = (title: string) => {
@@ -27,45 +25,47 @@ export default function Sidebar() {
 
   const sections = [
     {
-      title: 'PRODUCT & SERVICE',
+      title: "PRODUCT & SERVICE",
       items: [
-        { icon: ShoppingBag, label: 'Items', active: true },
-        { icon: Package, label: 'Inventories', badge: true },
-        { icon: MapPin, label: 'Locations' },
-        { icon: DollarSign, label: 'Price Setting' },
-        { icon: Tag, label: 'Promotions/Discounts' },
+        { icon: ShoppingBag, label: "Items", active: true },
+        { icon: Package, label: "Inventories", badge: true },
+        { icon: MapPin, label: "Locations" },
+        { icon: DollarSign, label: "Price Setting" },
+        { icon: Tag, label: "Promotions/Discounts" },
       ],
     },
     {
-      title: 'PEOPLE',
+      title: "PEOPLE",
       items: [
-        { icon: Users, label: 'Customers' },
-        { icon: Building2, label: 'Shop Partners' },
-        { icon: Truck, label: 'Suppliers' },
-        { icon: UserSquare2, label: 'Staff' },
-        { icon: UserCheck, label: 'Shareholders' },
+        { icon: Users, label: "Customers" },
+        { icon: Building2, label: "Shop Partners" },
+        { icon: Truck, label: "Suppliers" },
+        { icon: UserSquare2, label: "Staff" },
+        { icon: UserCheck, label: "Shareholders" },
       ],
     },
     {
-      title: 'MONEY',
+      title: "MONEY",
       items: [
-        { icon: Wallet, label: 'Assets' },
-        { icon: CreditCard, label: 'Liabilities' },
-        { icon: TrendingUp, label: 'Incomes', badge: true },
-        { icon: TrendingDown, label: 'Expenses' },
+        { icon: Wallet, label: "Assets" },
+        { icon: CreditCard, label: "Liabilities" },
+        { icon: TrendingUp, label: "Incomes", badge: true },
+        { icon: TrendingDown, label: "Expenses" },
       ],
     },
-  ];
-
-  const reports = [
-    { icon: FileText, label: 'End Of Day' },
-    { icon: Receipt, label: 'Sale' },
-    { icon: BarChart3, label: 'Finance' },
+    {
+      title: "REPORTS",
+      items: [
+        { icon: FileText, label: "End Of Day" },
+        { icon: Receipt, label: "Sale" },
+        { icon: BarChart3, label: "Finance" },
+      ],
+    },
   ];
 
   return (
-    <aside className="hidden lg:flex w-80 flex-col bg-white/80 backdrop-blur-2xl border-r border-gray-200/30 h-screen sticky top-0 z-50">
-      {/* Top Decorative Area */}
+    <aside className="hidden lg:flex w-72 flex-col bg-white border-r border-gray-200 h-screen sticky top-0 z-40">
+      {/* Top Decorative Shapes */}
       <div className="p-8 pb-6">
         <div className="flex flex-wrap gap-3 justify-center mb-8">
           <div className="w-14 h-14 bg-green-500 backdrop-blur rounded-t-full rounded-bl-full shadow-inner" />
@@ -75,44 +75,49 @@ export default function Sidebar() {
           <div className="w-14 h-14 bg-orange-500 backdrop-blur rounded-full shadow-inner" />
           <div className="w-14 h-14 bg-red-700 backdrop-blur rounded-t-3xl shadow-inner" />
         </div>
-
-        
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-6 pb-6 space-y-10 overflow-y-auto">
+      <nav className="flex-1 px-4 overflow-y-auto scrollbar-thin">
         {sections.map((section) => (
-          <div key={section.title}>
+          <div key={section.title} className="mb-6">
             <button
               onClick={() => toggleSection(section.title)}
-              className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 px-2"
+              className="flex w-full items-center justify-between text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2 px-3 hover:text-gray-600 transition"
             >
               {section.title}
               <ChevronDown
                 className={cn(
-                  'w-4 h-4 transition-transform duration-300',
-                  expandedSections.includes(section.title) && 'rotate-180'
+                  "w-4 h-4 transition-transform duration-200",
+                  expandedSections.includes(section.title) && "rotate-180"
                 )}
               />
             </button>
 
             {expandedSections.includes(section.title) && (
-              <ul className="space-y-2">
+              <ul className="space-y-1">
                 {section.items.map((item) => (
                   <li key={item.label}>
                     <button
                       className={cn(
-                        'flex w-full items-center justify-between px-5 py-3.5 rounded-2xl text-sm font-medium transition-all',
+                        'flex w-full items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
                         item.active
-                          ? 'bg-black text-white shadow-lg'
-                          : 'text-gray-700 hover:bg-gray-100/70 hover:shadow-md'
+                          ? 'bg-gray-900 text-white shadow-lg shadow-gray-200'
+                          : 'text-gray-600 hover:bg-gray-50'
                       )}
                     >
-                      <div className="flex items-center gap-4">
-                        <item.icon className="w-5 h-5" />
+                      <div className="flex items-center gap-3">
+                        <item.icon
+                          className={cn(
+                            "w-4 h-4",
+                            item.active ? "text-gray-300" : "text-gray-400"
+                          )}
+                        />
                         <span>{item.label}</span>
                       </div>
-                      {item.badge && <div className="w-2.5 h-2.5 bg-red-500 rounded-full" />}
+                      {item.badge && (
+                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      )}
                     </button>
                   </li>
                 ))}
@@ -120,49 +125,35 @@ export default function Sidebar() {
             )}
           </div>
         ))}
-
-        {/* Reports */}
-        <div>
-          <button
-            onClick={() => toggleSection('REPORTS')}
-            className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 px-2"
-          >
-            REPORTS
-            <ChevronDown
-              className={cn(
-                'w-4 h-4 transition-transform duration-300',
-                expandedSections.includes('REPORTS') && 'rotate-180'
-              )}
-            />
-          </button>
-
-          {expandedSections.includes('REPORTS') && (
-            <ul className="space-y-3 pl-8">
-              {reports.map((item) => (
-                <li key={item.label} className="flex items-center gap-4 text-sm text-gray-600 hover:text-gray-900 transition">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full" />
-                  {item.label}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </nav>
 
       {/* Bottom Action Bar */}
-      <div className="border-t border-gray-200/50 p-6 bg-white/70 backdrop-blur-xl">
-        <div className="flex justify-center gap-2">
-          <button className="relative p-4 bg-orange-100/80 text-orange-600 rounded-3xl hover:bg-orange-200/80 transition shadow-md">
-            <MessageSquare className="w-6 h-6" />
-            <span className="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full border-3 border-white" />
+      <div className="p-4 bg-white border-t border-gray-100">
+        <div className="flex items-center justify-between gap-2">
+          {/* Chat Button */}
+          <button className="w-12 h-12 flex items-center justify-center bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition relative">
+            <MessageCircle className="w-5 h-5 fill-current" />
+            <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
           </button>
-          <button className=" flex gap-4 p-4 bg-gray-100/80 rounded-3xl hover:bg-gray-200/80 transition shadow-md">
-            <Monitor className="w-6 h-6 text-gray-600" />    
-            <Headphones className="w-6 h-6 text-gray-600" />
-            <History className="w-6 h-6 text-gray-600" />
-          </button>
-          <button className="p-4 bg-green-700 text-white rounded-3xl hover:bg-green-800 transition shadow-lg">
-            <WalletCards className="w-6 h-6" />
+
+          {/* Center Pill */}
+          <div className="flex-1 h-12 bg-gray-100 rounded-full flex items-center justify-evenly px-2">
+            <button className="p-2 text-gray-500 hover:text-black transition">
+              <Monitor className="w-4 h-4" />
+            </button>
+            <div className="w-px h-4 bg-gray-300"></div>
+            <button className="p-2 text-gray-500 hover:text-black transition">
+              <Headphones className="w-4 h-4" />
+            </button>
+            <div className="w-px h-4 bg-gray-300"></div>
+            <button className="p-2 text-gray-500 hover:text-black transition">
+              <Clock className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Wallet Button */}
+          <button className="w-12 h-12 flex items-center justify-center bg-emerald-700 text-white rounded-full hover:bg-emerald-800 transition shadow-lg shadow-emerald-200">
+            <WalletCards className="w-5 h-5" />
           </button>
         </div>
       </div>

@@ -1,61 +1,47 @@
 // src/app/page.tsx
 "use client";
 
-import Header from "@/components/layout/Header";
+import { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import ProductGrid from "@/components/items/ProductGrid";
+import Header from "@/components/layout/Header";
+import ItemSubNavProduct from "@/components/items/ItemSubNavProduct";
 import ItemToolbar from "@/components/items/ItemToolbar";
+import ItemSubNav from "@/components/items/ItemSubNav";
+import ProductGrid from "@/components/items/ProductGrid";
 import ItemFilters from "@/components/items/ItemFilters";
-import ItemStats from "@/components/items/ItemStats";
 import ItemTabs from "@/components/items/ItemTabs";
 
 export default function ItemListPage() {
+  const [view, setView] = useState("list"); // 'list', 'categories', etc.
+
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden bg-[#F3F4F6]">
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-(--background) min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0">
         <Header />
+        
+        <div className="px-10 mt-4">
+          <ItemSubNavProduct />
+        </div>
 
-        {/* Main Content Card */}
-        <div className="mx-4 sm:mx-6 my-6 soft-card overflow-hidden">
-          {/* Breadcrumb + POS Badge */}
-          <div className="flex justify-between items-center px-8 py-5 bg-white/70 backdrop-blur-md border-b border-gray-200/30">
-            <div className="flex items-center gap-4 text-sm text-gray-600">
-              <button className="flex items-center gap-2 hover:text-gray-900 transition">
-                Dashboard <span className="text-gray-400">›</span>
-              </button>
-              <button className="flex items-center gap-2 hover:text-gray-900 transition">
-                Items
-              </button>
-            </div>
-            <div className="bg-orange-100/90 text-orange-600 px-6 py-2.5 rounded-full text-sm font-bold border border-orange-200/50 backdrop-blur shadow-sm">
-              POS 71
-            </div>
-          </div>
-
-          {/* Sub Navigation Tabs */}
-          <div className="flex gap-10 px-8 py-6 border-b border-gray-200/30 overflow-x-auto">
-            {["Item List", "Categories", "Tags", "Unit of Measure", "Custom Attributes", "Image Library"].map((tab) => (
-              <button
-                key={tab}
-                className={`text-sm font-medium whitespace-nowrap transition pb-2 border-b-2 ${
-                  tab === "Item List"
-                    ? "text-black border-black"
-                    : "text-gray-500 border-transparent hover:text-gray-800"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Page Content */}
-          <div className="p-8">
+        <div className="flex-1 mx-6 mb-6 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden flex flex-col">
+          <div className="px-8 pt-8 pb-0">
             <ItemToolbar />
-            <ItemFilters />
-            <ItemStats />
-            <ItemTabs />
-            <ProductGrid />
+            <ItemSubNav activeView={view} setView={setView} />
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-8 pb-8 pt-2 custom-scrollbar">
+            {view === "list" ? (
+              <div className="animate-in fade-in duration-300">
+                <ItemFilters />
+                <ItemTabs />
+                <ProductGrid />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-64 text-gray-400 font-bold italic">
+                {view.toUpperCase()} View Coming Soon...
+              </div>
+            )}
           </div>
         </div>
       </div>
