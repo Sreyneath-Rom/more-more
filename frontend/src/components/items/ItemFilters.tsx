@@ -9,18 +9,18 @@ export default function ItemFilters() {
         </button>
 
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 " />
           <input
             placeholder="Product ID, Name, Barcode..."
-            className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-xs focus:outline-none focus:ring-2 focus:ring-blue-100"
+            className="w-full pl-9 pr-4 py-2 shadow-inner bg-gray-50 border border-gray-200 rounded-full text-xs focus:outline-none focus:ring-2 focus:ring-blue-100"
           />
         </div>
 
-        <div className="flex items-center gap-2 bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full text-[11px] font-bold border border-blue-100">
+        <div className="flex items-center gap-2 bg-blue-50 text-sky-600 px-3 py-1.5 rounded-full text-[11px] font-bold border border-blue-100">
           Category 3 selected <span className="cursor-pointer">×</span>
         </div>
 
-        <button className="text-blue-500 text-[11px] font-bold flex items-center gap-1">
+        <button className="text-sky-500 text-[11px] font-bold flex items-center gap-1">
           <Plus className="w-3 h-3" /> All filter
         </button>
       </div>
@@ -28,9 +28,9 @@ export default function ItemFilters() {
       <div className="flex items-center gap-3 text-[11px] text-gray-400 font-bold">
         <span>Total: <b className="text-gray-900">120</b></span>
         <div className="w-px h-3 bg-gray-200" />
-        <span className="text-blue-500">For Sale: <b className="text-gray-900">25</b></span>
+        <span className="text-sky-500">For Sale: <b className="text-gray-900">25</b></span>
         <div className="w-px h-3 bg-gray-200" />
-        <span className="text-blue-500">Manufacture: <b className="text-gray-900">25</b></span>
+        <span className="text-sky-500">Manufacture: <b className="text-gray-900">25</b></span>
       </div>
     </div>
   );

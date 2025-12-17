@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, ShoppingBag, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Sidebar from '@/components/layout/Sidebar';
+import Header from '@/components/layout/Header';
 
 export default function ItemsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -16,48 +18,54 @@ export default function ItemsLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Sub Navigation */}
-      <div className="flex items-end justify-between border-b border-gray-200/60 w-full px-2 bg-white sticky top-0 z-30">
-        <div className="flex items-end gap-1">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = pathname === tab.href;
+    <div className="flex h-screen overflow-hidden bg-[#F3F4F6]">
+      {/* Sidebar */}
+      <Sidebar />
 
-            return (
-              <Link
-                key={tab.label}
-                href={tab.href}
-                className="block" // Ensures full area is clickable
-              >
-                <div
-                  className={cn(
-                    "px-6 py-3.5 text-[13px] font-extrabold rounded-t-[14px] transition-all flex items-center gap-2",
-                    isActive
-                      ? "bg-white text-[#F97316] border-x border-t border-gray-200 -mb-px z-10 shadow-[0_-4px_12px_-6px_rgba(0,0,0,0.08)]"
-                      : "bg-gray-200/40 text-gray-500 hover:bg-gray-200/70 hover:text-gray-700"
-                  )}
-                >
-                  <Icon className={cn("w-4 h-4", isActive && "text-[#F97316]")} />
-                  <span>{tab.label}</span>
-                </div>
-              </Link>
-            );
-          })}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Header */}
+        <Header />
+
+        {/* Sub Navigation */}
+        <div className="px-10 mt-4">
+          <div className="flex items-end justify-between border-b border-gray-200/60 w-full px-2 bg-white rounded-t-3xl">
+            <div className="flex items-end gap-1">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = pathname === tab.href;
+
+                return (
+                  <Link key={tab.label} href={tab.href} className="block">
+                    <div
+                      className={cn(
+                        "px-6 py-3.5 text-[13px] font-extrabold rounded-t-[14px] transition-all flex items-center gap-2",
+                        isActive
+                          ? "bg-white text-[#F97316] border-x border-t border-gray-200 -mb-px z-10 shadow-[0_-4px_12px_-6px_rgba(0,0,0,0.08)]"
+                          : "bg-gray-200/40 text-gray-500 hover:bg-gray-200/70 hover:text-gray-700"
+                      )}
+                    >
+                      <Icon className={cn("w-4 h-4", isActive && "text-[#F97316]")} />
+                      <span>{tab.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => window.open('/pos', '_blank')}
+              className="mb-2 bg-[#F97316] text-white px-7 py-2.5 rounded-full text-[13px] font-extrabold shadow-lg shadow-orange-100 flex items-center gap-2 hover:bg-[#f85800] transition mr-4"
+            >
+              POS <span className="text-[10px]">↗</span>
+            </button>
+          </div>
         </div>
 
-        <button
-          onClick={() => alert('POS opened!')} // Replace with actual POS logic/route
-          className="mb-2 bg-[#F97316] text-white px-7 py-2.5 rounded-full text-[13px] font-extrabold shadow-lg shadow-orange-100 flex items-center gap-2 hover:bg-[#f85800] transition mr-4"
-        >
-          POS <span className="text-[10px]">↗</span>
-        </button>
+        {/* Main Content Area */}
+        <div className="flex-1 mx-6 mb-6 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden flex flex-col">
+          {children}
+        </div>
       </div>
-
-      {/* Page Content */}
-      <main className="p-6">
-        {children}
-      </main>
     </div>
   );
 }

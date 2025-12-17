@@ -3,7 +3,7 @@ import { Search, Bell, Settings, ChevronDown } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="h-18 px-8 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className="h-18 px-8 flex items-center justify-between bg-gray-100 border-b border-gray-100 sticky top-0 z-50">
       {/* Brand: High-Contrast Hierarchy */}
       <div className="flex flex-col min-w-60">
         <h1 className="text-[18px] font-black text-gray-900 leading-tight">តាំង មេងជូ POS</h1>
@@ -18,7 +18,7 @@ export default function Header() {
         <input
           type="text"
           placeholder="Search anything here..."
-          className="w-full pl-12 pr-6 py-2.5 bg-[#F3F4F6] border-none rounded-full text-[13px] placeholder:text-gray-400 outline-none"
+          className="w-full pl-12 pr-6 py-2.5 shadow-inner  bg-[#F3F4F6] border-none rounded-full text-[13px] placeholder:text-gray-400 outline-none"
         />
       </div>
 

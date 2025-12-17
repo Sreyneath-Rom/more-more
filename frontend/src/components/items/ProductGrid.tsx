@@ -1,43 +1,46 @@
 // src/components/items/ProductGrid.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { products } from "@/constants/products";
 import ProductCard from "./ProductCard";
 import Pagination from "@/components/ui/Pagination";
-import { CheckCircle2 } from "lucide-react";
 
 const PAGE_SIZE = 15;
 
+interface ProductGridProps {
+  activeTab: string;
+  onSelectedChange: (count: number) => void;
+}
 
-export default function ProductGrid() {
+export default function ProductGrid({ activeTab, onSelectedChange }: ProductGridProps) {
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState("All");
 
-  const start = (page - 1) * PAGE_SIZE;
-  const paginated = products.slice(start, start + PAGE_SIZE);
-  const totalPages = Math.ceil(products.length / PAGE_SIZE);
+  // Update parent when selection changes
+  useMemo(() => {
+    onSelectedChange(selected.length);
+  }, [selected.length, onSelectedChange]);
+
+  const filteredProducts = useMemo(() => {
+    if (activeTab === "All") return products;
+    const term = activeTab.toLowerCase().replace(" ", "");
+    return products.filter(p => p.name.toLowerCase().includes(term));
+  }, [activeTab]);
+
+  const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE);
+  const paginated = filteredProducts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const toggleSelect = (id: string) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    setSelected(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
     );
+    setPage(1); // Optional: reset page on selection
   };
 
   return (
     <>
-      {/* Filter Tabs & Select Action */}
-      <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        <div className="flex p-1 bg-gray-100 rounded-xl">
-        
-        </div>
-
-      
-      </div>
-
-      {/* Grid - Adjusted for Horizontal Cards */}
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {paginated.map((product) => (
           <ProductCard
             key={product.id}
@@ -48,30 +51,11 @@ export default function ProductGrid() {
         ))}
       </div>
 
-      <div className="mt-8 pt-4 border-t border-gray-100">
-        <Pagination page={page} totalPages={totalPages} onChange={setPage} />
-      </div>
+      {totalPages > 1 && (
+        <div className="mt-10 pt-6 border-t border-gray-100">
+          <Pagination page={page} totalPages={totalPages} onChange={setPage} />
+        </div>
+      )}
     </>
   );
 }
-// const TABS = ["All", "Purchased Item", "Manufacture", "Combo"];
-  {/* {TABS.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`
-                px-4 py-1.5 rounded-lg text-xs font-semibold transition-all
-                ${activeTab === tab 
-                  ? "bg-gray-800 text-white shadow-sm" 
-                  : "text-gray-500 hover:text-gray-900 hover:bg-gray-200/50"
-                }
-              `}
-            >
-              {tab}
-            </button>
-          ))} */}
-
-  {/* <button className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50 bg-white">
-           <CheckCircle2 className="w-3.5 h-3.5 text-gray-400" />
-           Select
-        </button> */}
