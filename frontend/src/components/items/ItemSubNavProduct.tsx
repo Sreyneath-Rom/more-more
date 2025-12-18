@@ -43,7 +43,7 @@ export default function ItemSubNavProduct() {
         <Tab label="Inventory" icon={<Package className="w-4 h-4" />} active={activeTab === "inventory"} onClick={() => setActiveTab("inventory")} />
       </div>
 
-      <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg transition-colors">
+      <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full text-sm font-bold shadow-lg transition-colors mb-1">
         POS 71
       </button>
     </div>

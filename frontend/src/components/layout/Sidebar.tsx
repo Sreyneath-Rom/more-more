@@ -116,7 +116,7 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-72 bg-gray-200 shadow-lg",
+          "fixed inset-y-0 left-0 z-50 w-72 bg-gray-100 shadow-lg",
           "transform transition-transform duration-300",
           "lg:static lg:translate-x-0 lg:shadow-none",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -190,7 +190,7 @@ export default function Sidebar({
           </nav>
 
           {/* Bottom Bar */}
-          <div className=" bg-gray-100 px-4 py-3">
+          <div className=" bg-white px-4 py-3">
             <div className="flex items-center gap-3">
               {/* Chat */}
               <button

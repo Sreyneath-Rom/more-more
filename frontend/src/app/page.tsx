@@ -56,7 +56,7 @@ export default function ItemListPage() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-200">
+    <div className="flex h-screen overflow-hidden bg-gray-100">
       {/* Sidebar */}
       <Sidebar mobileOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
@@ -74,13 +74,13 @@ export default function ItemListPage() {
         <div className="flex-1 mx-4 sm:mx-6 mb-4 sm:mb-6 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden flex flex-col">
           {/* Toolbar, SubNav, Filters */}
           <div className="px-4 sm:px-6 lg:px-8 pt-6 lg:pt-8 pb-0">
+              <ItemSubNav activeView={view} setView={setView} />
             <ItemToolbar />
-            <ItemSubNav activeView={view} setView={setView} />
+          
             <ItemFilters />
           </div>
-
           {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 pb-6 lg:pb-8 pt-2 bg-gray-50 mx-2 sm:mx-4 lg:mx-6 rounded-2xl custom-scrollbar">
+          <div className="   px-4 sm:px-6 lg:px-8 pb-6 lg:pb-8  bg-gray-100 mx-2 sm:mx-4 lg:mx-6 rounded-2xl">
             {view === "list" ? (
               <div className="flex flex-col gap-6 lg:gap-8">
                 {/* Tabs */}
@@ -89,14 +89,6 @@ export default function ItemListPage() {
                   onTabChange={handleTabChange}
                   selectedCount={selectedCount}
                 />
-
-                {/* Showing X–Y of Z + Stats */}
-                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center text-sm text-gray-600 gap-4 mb-6">
-                  <div>
-                    Showing <strong>{startItem}–{endItem}</strong> of <strong>{totalItems}</strong> items
-                  </div>
-                  <ItemStats />
-                </div>
 
                 {/* Product Grid */}
                 <ProductGrid

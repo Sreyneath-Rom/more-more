@@ -14,7 +14,7 @@ interface ItemTabsProps {
 
 export default function ItemTabs({ activeTab, onTabChange, selectedCount }: ItemTabsProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-gray-100 sticky top-0 z-20 py-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 -mt-2">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 sticky top-0 z-20 py-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 -mt-2">
       <div className="flex items-center p-1 bg-gray-200/60 rounded-xl shadow-inner">
         {TABS.map((tab) => (
           <button
