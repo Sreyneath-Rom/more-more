@@ -116,7 +116,7 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-72 bg-gray-100 shadow-lg",
+          "fixed inset-y-0 left-0 z-50 w-72 bg-gray-200 shadow-lg",
           "transform transition-transform duration-300",
           "lg:static lg:translate-x-0 lg:shadow-none",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -124,8 +124,8 @@ export default function Sidebar({
       >
         <div className="flex h-full flex-col">
           {/* Decorative Header (Desktop) */}
-          <div className="hidden lg:block p-6 bg-gray-50">
-            <div className="rounded-3xl bg-white p-6 shadow-inner">
+          <div className="hidden lg:block p-6">
+            <div className="rounded-3xl p-6 shadow-inner shadow-indigo-100 bg-linear-to-br from-indigo-50 to-white">
               <div className="grid grid-cols-3 gap-3">
                 <div className="w-14 h-14 bg-green-500 rounded-t-full rounded-bl-full" />
                 <div className="w-14 h-14 bg-blue-400 rounded-br-full rounded-tl-full" />
@@ -190,7 +190,7 @@ export default function Sidebar({
           </nav>
 
           {/* Bottom Bar */}
-          <div className="border-t bg-white px-4 py-3">
+          <div className=" bg-gray-100 px-4 py-3">
             <div className="flex items-center gap-3">
               {/* Chat */}
               <button
@@ -202,7 +202,7 @@ export default function Sidebar({
               </button>
 
               {/* Quick Actions */}
-              <div className="flex-1 flex items-center justify-center gap-2 rounded-full bg-gray-100 px-4 h-12">
+              <div className="flex-1 flex items-center justify-center gap-2 rounded-full shadow-inner shadow-indigo-100 bg-linear-to-br from-indigo-50 to-gray-200 px-4 h-12">
                 {[Monitor, Headphones, Clock].map((Icon, i) => (
                   <button
                     key={i}

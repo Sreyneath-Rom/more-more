@@ -56,7 +56,7 @@ export default function ItemListPage() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-100">
+    <div className="flex h-screen overflow-hidden bg-gray-200">
       {/* Sidebar */}
       <Sidebar mobileOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
