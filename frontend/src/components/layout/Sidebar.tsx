@@ -95,7 +95,7 @@ export default function Sidebar() {
   return (
     <aside className="hidden lg:flex w-72 flex-col bg-gray-100h-screen sticky top-0 z-40">
       {/* Top Decorative Shapes */}
-      <div className="p-8 pb-6 bg-gray-100 ">
+      <div className="p-8 pb-6 bg-gray-100 h-40 flex flex-col items-center justify-center mt-4">
         <div className="flex flex-wrap gap-3 justify-center mb-8 shadow-inner shadow-gray-200 p-4 rounded-2xl bg-white">
           <div className="w-14 h-14 bg-green-500 backdrop-blur rounded-t-full rounded-bl-full shadow-inner" />
           <div className="w-14 h-14 bg-blue-400 backdrop-blur rounded-br-full rounded-tl-full shadow-inner" />
@@ -107,7 +107,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-4">
+      <nav className="flex-1 overflow-y-auto py-4 flex flex-col">
         {sections.map((section) => (
           <div key={section.title} className="mb-2">
             <button
