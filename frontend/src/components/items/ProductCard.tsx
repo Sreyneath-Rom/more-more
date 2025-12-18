@@ -1,4 +1,3 @@
-// src/components/items/ProductCard.tsx
 'use client';
 
 import Image from "next/image";
@@ -18,44 +17,33 @@ export default function ProductCard({ product, selected, onSelect }: ProductCard
     <div
       onClick={onSelect}
       className={`
-        group relative flex items-center p-4 gap-2 bg-white rounded-2xl border transition-all duration-200 cursor-pointer
+        group relative flex items-center p-4 gap-4 bg-white rounded-2xl border transition-all duration-200 cursor-pointer
         ${selected 
           ? "border-blue-500 ring-2 ring-blue-100 shadow-md" 
           : "border-gray-100 hover:border-gray-300 hover:shadow-lg"
         }
       `}
     >
-      {/* Checkbox - visible on selected or hover */}
       <div className={`absolute top-3 right-3 z-10 transition-opacity ${selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-        <Checkbox 
-          checked={selected} 
-          onChange={(e) => { 
-            e.stopPropagation(); 
-            onSelect(); 
-          }} 
-        />
+        <Checkbox checked={selected} onChange={(e) => { e.stopPropagation(); onSelect(); }} />
       </div>
 
-      {/* Product Image */}
       <div className="w-20 h-20 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100">
         <Image
-          src={product.image || "/placeholder.png"} // fallback if image fails
+          src={product.image || "/placeholder.png"}
           alt={product.name}
           width={80}
           height={80}
           className="object-cover w-full h-full"
-          unoptimized // Use if external domains aren't in next.config.js yet
+          unoptimized
         />
       </div>
 
-      {/* Product Info */}
       <div className="flex flex-col min-w-0 flex-1">
         <h3 className="text-[13px] font-bold text-gray-900 truncate leading-tight">
           {product.name}
         </h3>
-        <p className="text-[11px] font-bold text-orange-500 mt-0.5">
-          {description}
-        </p>
+        <p className="text-[11px] font-bold text-orange-500 mt-0.5">{description}</p>
         <div className="mt-3 flex items-center gap-2">
           <span className="text-sm font-bold text-gray-900">{product.price}</span>
           <div className="bg-blue-50 p-0.5 rounded-full">

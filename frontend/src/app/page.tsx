@@ -1,7 +1,7 @@
-// src/app/page.tsx
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 import ItemSubNavProduct from "@/components/items/ItemSubNavProduct";
@@ -10,24 +10,22 @@ import ItemSubNav from "@/components/items/ItemSubNav";
 import ProductGrid from "@/components/items/ProductGrid";
 import ItemFilters from "@/components/items/ItemFilters";
 import ItemTabs from "@/components/items/ItemTabs";
+import ItemStats from "@/components/items/ItemStats";
 import Pagination from "@/components/ui/Pagination";
 
-// Define the full view type to match ItemSubNav
 type ViewType = "list" | "categories" | "tags" | "uom" | "attributes" | "library";
-
-const TABS = ["All", "Purchased Item", "Manufacture", "Combo"] as const;
-type TabType = (typeof TABS)[number];
+type TabType = "All" | "Purchased Item" | "Manufacture" | "Combo";
 
 export default function ItemListPage() {
-  // Now supports all views from ItemSubNav
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [view, setView] = useState<ViewType>("list");
   const [activeTab, setActiveTab] = useState<TabType>("All");
   const [selectedCount, setSelectedCount] = useState(0);
 
-  // Centralized pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
-  const totalItems = 157; // Replace with real data later
+  const totalItems = 120;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const startItem = (currentPage - 1) * itemsPerPage + 1;
@@ -58,46 +56,49 @@ export default function ItemListPage() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#F3F4F6]">
-      <Sidebar />
+    <div className="flex h-screen overflow-hidden bg-gray-100">
+      {/* Sidebar */}
+      <Sidebar mobileOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header />
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        {/* Header */}
+        <Header onMenuToggle={() => setMobileMenuOpen(true)} />
 
-        <div className="px-10 mt-4">
+        {/* Top SubNav */}
+        <div className="px-4 sm:px-6 lg:px-10 mt-4">
           <ItemSubNavProduct />
         </div>
 
-        <div className="flex-1 mx-6 mb-6 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden flex flex-col">
-          <div className="px-8 pt-8 pb-0">
+        {/* Content Card */}
+        <div className="flex-1 mx-4 sm:mx-6 mb-4 sm:mb-6 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden flex flex-col">
+          {/* Toolbar, SubNav, Filters */}
+          <div className="px-4 sm:px-6 lg:px-8 pt-6 lg:pt-8 pb-0">
             <ItemToolbar />
             <ItemSubNav activeView={view} setView={setView} />
             <ItemFilters />
           </div>
 
-          <div className="flex-1 overflow-y-auto px-8 pb-8 pt-2 custom-scrollbar bg-gray-100 ml-5 mr-5 rounded-2xl">
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 pb-6 lg:pb-8 pt-2 bg-gray-50 mx-2 sm:mx-4 lg:mx-6 rounded-2xl custom-scrollbar">
             {view === "list" ? (
-              <div className="flex flex-col gap-8 animate-in fade-in duration-300">
+              <div className="flex flex-col gap-6 lg:gap-8">
+                {/* Tabs */}
                 <ItemTabs
                   activeTab={activeTab}
                   onTabChange={handleTabChange}
                   selectedCount={selectedCount}
                 />
 
-                {/* Stats Row */}
-                <div className="flex flex-wrap justify-between items-center text-sm text-gray-600 gap-4">
+                {/* Showing X–Y of Z + Stats */}
+                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center text-sm text-gray-600 gap-4 mb-6">
                   <div>
-                    Showing <strong>{startItem}–{endItem}</strong> of{" "}
-                    <strong>{totalItems}</strong> items
+                    Showing <strong>{startItem}–{endItem}</strong> of <strong>{totalItems}</strong> items
                   </div>
-                  <div className="flex items-center gap-6 text-[13px]">
-                    <span>For Sale: <strong className="text-gray-900">25</strong></span>
-                    <span>Manufacture: <strong className="text-gray-900">25</strong></span>
-                    <span>Combo: <strong className="text-gray-900">10</strong></span>
-                    <span>Component: <strong className="text-gray-900">10</strong></span>
-                  </div>
+                  <ItemStats />
                 </div>
 
+                {/* Product Grid */}
                 <ProductGrid
                   activeTab={activeTab}
                   currentPage={currentPage}
@@ -105,6 +106,7 @@ export default function ItemListPage() {
                   onSelectedChange={setSelectedCount}
                 />
 
+                {/* Pagination */}
                 <Pagination
                   page={currentPage}
                   totalPages={totalPages}
@@ -112,11 +114,10 @@ export default function ItemListPage() {
                 />
               </div>
             ) : (
+              /* Placeholder for other views */
               <div className="flex flex-col items-center justify-center h-96 text-gray-400">
                 <div className="text-6xl mb-6">📂</div>
-                <p className="text-2xl font-semibold text-gray-600">
-                  {getViewLabel(view)} View
-                </p>
+                <p className="text-2xl font-semibold text-gray-600">{getViewLabel(view)} View</p>
                 <p className="text-sm mt-3">This section is under development.</p>
                 <p className="text-sm">Coming soon...</p>
               </div>

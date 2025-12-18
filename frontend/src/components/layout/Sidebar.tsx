@@ -1,7 +1,6 @@
-// src/components/layout/Sidebar.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ShoppingBag,
   Package,
@@ -20,163 +19,211 @@ import {
   FileText,
   Receipt,
   BarChart3,
-  ChevronDown,
   MessageCircle,
   Monitor,
   Headphones,
   Clock,
   WalletCards,
+  ChevronDown,
 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export default function Sidebar() {
-  const [expandedSections, setExpandedSections] = useState<string[]>([
-    "PRODUCT & SERVICE",
-  ]);
+interface SidebarProps {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}
 
-  const [activeItem, setActiveItem] = useState<string>("Items");
+export default function Sidebar({
+  mobileOpen = false,
+  onClose,
+}: SidebarProps) {
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const toggleSection = (title: string) => {
-    setExpandedSections((prev) =>
-      prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title]
-    );
-  };
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   const sections = [
     {
       title: "PRODUCT & SERVICE",
       items: [
-        { icon: ShoppingBag, label: "Items" },
-        { icon: Package, label: "Inventories", badge: true },
-        { icon: MapPin, label: "Locations" },
-        { icon: DollarSign, label: "Price Setting" },
-        { icon: Tag, label: "Promotions/Discounts" },
+        { icon: ShoppingBag, label: "Items", href: "/items" },
+        { icon: Package, label: "Inventories", href: "/inventories", badge: true },
+        { icon: MapPin, label: "Locations", href: "/locations" },
+        { icon: DollarSign, label: "Price Setting", href: "/price-setting" },
+        { icon: Tag, label: "Promotions", href: "/promotions" },
       ],
     },
     {
       title: "PEOPLE",
       items: [
-        { icon: Users, label: "Customers" },
-        { icon: Building2, label: "Shop Partners" },
-        { icon: Truck, label: "Suppliers" },
-        { icon: UserSquare2, label: "Staff" },
-        { icon: UserCheck, label: "Shareholders" },
+        { icon: Users, label: "Customers", href: "/customers" },
+        { icon: Building2, label: "Shop Partners", href: "/partners" },
+        { icon: Truck, label: "Suppliers", href: "/suppliers" },
+        { icon: UserSquare2, label: "Staff", href: "/staff" },
+        { icon: UserCheck, label: "Shareholders", href: "/shareholders" },
       ],
     },
     {
       title: "MONEY",
       items: [
-        { icon: Wallet, label: "Assets" },
-        { icon: CreditCard, label: "Liabilities" },
-        { icon: TrendingUp, label: "Income" },
-        { icon: TrendingDown, label: "Expenses" },
-        { icon: FileText, label: "Taxes" },
+        { icon: Wallet, label: "Assets", href: "/assets" },
+        { icon: CreditCard, label: "Liabilities", href: "/liabilities" },
+        { icon: TrendingUp, label: "Income", href: "/income" },
+        { icon: TrendingDown, label: "Expenses", href: "/expenses" },
+        { icon: FileText, label: "Taxes", href: "/taxes" },
       ],
     },
     {
       title: "REPORTS",
       items: [
-        { icon: Receipt, label: "Sales Reports" },
-        { icon: BarChart3, label: "Analytics" },
-        { icon: FileText, label: "Audit Logs" },
+        { icon: Receipt, label: "Sales Reports", href: "/reports/sales" },
+        { icon: BarChart3, label: "Analytics", href: "/reports/analytics" },
+        { icon: FileText, label: "Audit Logs", href: "/reports/audit-logs" },
       ],
     },
   ];
 
-  const isSectionExpanded = (title: string) => expandedSections.includes(title);
+  /** Auto-expand section based on current route */
+  useEffect(() => {
+    sections.forEach((section) => {
+      if (section.items.some((item) => pathname.startsWith(item.href))) {
+        setExpandedSections((prev) =>
+          prev.includes(section.title) ? prev : [...prev, section.title]
+        );
+      }
+    });
+  }, [pathname]);
 
-  const handleItemClick = (label: string) => {
-    setActiveItem(label);
-    // Ready for future routing:
-    // const router = useRouter();
-    // router.push(`/dashboard/${label.toLowerCase().replace(" ", "-")}`);
+  const toggleSection = (title: string) => {
+    setExpandedSections((prev) =>
+      prev.includes(title)
+        ? prev.filter((s) => s !== title)
+        : [...prev, title]
+    );
   };
 
   return (
-    <aside className="hidden lg:flex w-72 flex-col bg-gray-100h-screen sticky top-0 z-40">
-      {/* Top Decorative Shapes */}
-      <div className="p-8 pb-6 bg-gray-100 h-40 flex flex-col items-center justify-center mt-4">
-        <div className="flex flex-wrap gap-3 justify-center mb-8 shadow-inner shadow-gray-200 p-4 rounded-2xl bg-white">
-          <div className="w-14 h-14 bg-green-500 backdrop-blur rounded-t-full rounded-bl-full shadow-inner" />
-          <div className="w-14 h-14 bg-blue-400 backdrop-blur rounded-br-full rounded-tl-full shadow-inner" />
-          <div className="w-14 h-14 bg-yellow-500 backdrop-blur rounded-full shadow-inner" />
-          <div className="w-14 h-14 bg-red-500 backdrop-blur rounded-full shadow-inner" />
-          <div className="w-14 h-14 bg-orange-500 backdrop-blur rounded-full shadow-inner" />
-          <div className="w-14 h-14 bg-red-700 backdrop-blur rounded-t-3xl shadow-inner" />
-        </div>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={onClose}
+        />
+      )}
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-4 flex flex-col">
-        {sections.map((section) => (
-          <div key={section.title} className="mb-2">
-            <button
-              onClick={() => toggleSection(section.title)}
-              className="w-full px-6 py-3 flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider hover:text-gray-700 transition"
-            >
-              <span>{section.title}</span>
-              <ChevronDown
-                className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  isSectionExpanded(section.title) && "rotate-180"
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-72 bg-gray-100 shadow-lg",
+          "transform transition-transform duration-300",
+          "lg:static lg:translate-x-0 lg:shadow-none",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <div className="flex h-full flex-col">
+          {/* Decorative Header (Desktop) */}
+          <div className="hidden lg:block p-6 bg-gray-50">
+            <div className="rounded-3xl bg-white p-6 shadow-inner">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="w-14 h-14 bg-green-500 rounded-t-full rounded-bl-full" />
+                <div className="w-14 h-14 bg-blue-400 rounded-br-full rounded-tl-full" />
+                <div className="w-14 h-14 bg-yellow-500 rounded-full" />
+                <div className="w-14 h-14 bg-red-500 rounded-full" />
+                <div className="w-14 h-14 bg-orange-500 rounded-full" />
+                <div className="w-14 h-14 bg-red-700 rounded-2xl" />
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 overflow-y-auto px-4 py-6">
+            {sections.map((section) => (
+              <div key={section.title} className="mb-6">
+                <button
+                  aria-expanded={expandedSections.includes(section.title)}
+                  onClick={() => toggleSection(section.title)}
+                  className="flex w-full items-center justify-between px-4 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gray-600"
+                >
+                  {section.title}
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 transition-transform",
+                      expandedSections.includes(section.title) && "rotate-180"
+                    )}
+                  />
+                </button>
+
+                {expandedSections.includes(section.title) && (
+                  <ul className="mt-2 space-y-1">
+                    {section.items.map((item) => {
+                      const active = pathname === item.href;
+
+                      return (
+                        <li key={item.href}>
+                          <button
+                            onClick={() => {
+                              router.push(item.href);
+                              onClose?.();
+                            }}
+                            className={cn(
+                              "group flex w-full items-center gap-3 rounded-lg px-6 py-3 text-sm font-medium transition",
+                              active
+                                ? "bg-orange-50 text-orange-500 border-r-4 border-orange-500"
+                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                            )}
+                          >
+                            <item.icon className="h-5 w-5 transition-transform group-hover:scale-110" />
+                            {item.label}
+                            {item.badge && (
+                              <span className="ml-auto h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                            )}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 )}
-              />
-            </button>
+              </div>
+            ))}
+          </nav>
 
-            {isSectionExpanded(section.title) && (
-              <ul>
-                {section.items.map((item) => (
-                  <li key={item.label}>
-                    <button
-                      onClick={() => handleItemClick(item.label)}
-                      className={cn(
-                        "w-full px-6 py-3 flex items-center gap-3 text-sm font-medium transition-all relative",
-                        activeItem === item.label
-                          ? "text-[#F97316] bg-orange-50 border-r-4 border-[#F97316]"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                      )}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      <span>{item.label}</span>
-                      {item.badge && (
-                        <span className="absolute right-6 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                      )}
-                    </button>
-                  </li>
+          {/* Bottom Bar */}
+          <div className="border-t bg-white px-4 py-3">
+            <div className="flex items-center gap-3">
+              {/* Chat */}
+              <button
+                aria-label="Messages"
+                className="relative flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-orange-600 transition hover:bg-orange-200 active:scale-95"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white animate-pulse" />
+              </button>
+
+              {/* Quick Actions */}
+              <div className="flex-1 flex items-center justify-center gap-2 rounded-full bg-gray-100 px-4 h-12">
+                {[Monitor, Headphones, Clock].map((Icon, i) => (
+                  <button
+                    key={i}
+                    className="p-2 text-gray-500 hover:text-gray-900 active:scale-95"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </button>
                 ))}
-              </ul>
-            )}
+              </div>
+
+              {/* Wallet */}
+              <button
+                aria-label="Wallet"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700 text-white transition hover:bg-emerald-800 active:scale-95"
+              >
+                <WalletCards className="h-5 w-5" />
+              </button>
+            </div>
           </div>
-        ))}
-      </nav>
-
-      {/* Bottom Action Bar */}
-      <div className="p-4 bg-white border-t border-gray-100">
-        <div className="flex items-center justify-between gap-2">
-          <button className="w-12 h-12 flex items-center justify-center bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition relative">
-            <MessageCircle className="w-5 h-5 fill-current" />
-            <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-          </button>
-
-          <div className="flex-1 h-12 bg-gray-100 rounded-full flex items-center justify-evenly px-2">
-            <button className="p-2 text-gray-500 hover:text-black transition">
-              <Monitor className="w-4 h-4" />
-            </button>
-            <div className="w-px h-4 bg-gray-300" />
-            <button className="p-2 text-gray-500 hover:text-black transition">
-              <Headphones className="w-4 h-4" />
-            </button>
-            <div className="w-px h-4 bg-gray-300" />
-            <button className="p-2 text-gray-500 hover:text-black transition">
-              <Clock className="w-4 h-4" />
-            </button>
-          </div>
-
-          <button className="w-12 h-12 flex items-center justify-center bg-emerald-700 text-white rounded-full hover:bg-emerald-800 transition shadow-lg shadow-emerald-200">
-            <WalletCards className="w-5 h-5" />
-          </button>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }

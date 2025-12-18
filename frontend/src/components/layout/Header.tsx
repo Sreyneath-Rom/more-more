@@ -1,52 +1,58 @@
-// src/components/layout/Header.tsx
-import { Search, Bell, Settings, ChevronDown } from "lucide-react";
+import { Search, Bell, Settings, ChevronDown, Menu } from "lucide-react";
 
-export default function Header() {
+interface HeaderProps {
+  onMenuToggle: () => void;
+}
+
+export default function Header({ onMenuToggle }: HeaderProps) {
   return (
-    <header className="h-18 px-8 flex items-center justify-between bg-gray-100 border-b border-gray-100 sticky top-0 z-50">
-      {/* Brand: High-Contrast Hierarchy */}
-      <div className="flex flex-col min-w-60">
-        <h1 className="text-[18px] font-black text-gray-900 leading-tight">
-          តាំង មេងជូ POS
-        </h1>
-        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.18em] mt-0.5">
-          Hong Hua Technology Co., Ltd
-        </p>
+    <header className="h-18 px-4 sm:px-6 lg:px-8 flex items-center justify-between bg-gray-100 border-b border-gray-100 sticky top-0 z-50">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onMenuToggle}
+          className="lg:hidden p-2 rounded-full hover:bg-gray-200 transition"
+        >
+          <Menu className="w-6 h-6 text-gray-700" />
+        </button>
+
+        <div className="flex flex-col">
+          <h1 className="text-lg sm:text-[18px] font-black text-gray-900 leading-tight">
+            តាំង មេងជូ POS
+          </h1>
+          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.18em] mt-0.5">
+            Hong Hua Technology Co., Ltd
+          </p>
+        </div>
       </div>
 
-      {/* Search: Neutral Gray Pill */}
-      <div className="flex-1 max-w-2xl mx-12 relative">
+      {/* Search - hidden on mobile */}
+      <div className="hidden sm:flex flex-1 max-w-xl mx-8 lg:mx-12 relative">
         <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400 stroke-[2.5]" />
         <input
           type="text"
           placeholder="Search anything here..."
-          className="w-full pl-12 pr-6 py-2.5 
-             shadow-inset
-               shadow-inner-strong
-               shadow-sm
-               bg-gray-100 
-               border-none 
-               rounded-full 
-               text-[13px] 
-               placeholder:text-gray-400 
-               outline-none"
+          className="w-full pl-12 pr-6 py-2.5 bg-gray-100 border-none rounded-full shadow-inner text-[13px] placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-orange-200"
         />
       </div>
 
-      {/* Profile & Tools */}
-      <div className="flex items-center gap-5">
-        <div className="flex items-center gap-1 border-r border-gray-100 pr-5">
-          <button className="p-2.5 text-gray-400 relative">
+      {/* Mobile search icon placeholder */}
+      <button className="sm:hidden p-2 rounded-full hover:bg-gray-200">
+        <Search className="w-5 h-5 text-gray-600" />
+      </button>
+
+      <div className="flex items-center gap-3 sm:gap-5">
+        <div className="hidden sm:flex items-center gap-1 border-r border-gray-100 pr-5">
+          <button className="p-2.5 text-gray-400 relative hover:bg-gray-200 rounded-full transition">
             <Bell className="w-5 h-5 stroke-[1.8]" />
             <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-[#EF4444] border-2 border-white rounded-full" />
           </button>
-          <button className="p-2.5 text-gray-400">
+          <button className="p-2.5 text-gray-400 hover:bg-gray-200 rounded-full transition">
             <Settings className="w-5 h-5 stroke-[1.8]" />
           </button>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="text-right">
+          <div className="text-right hidden xs:block">
             <p className="text-[13px] font-extrabold text-gray-900 leading-none">
               Taing Mengju
             </p>
@@ -60,7 +66,7 @@ export default function Header() {
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#10B981] border-[3px] border-white rounded-full" />
           </div>
-          <ChevronDown className="w-4 h-4 text-gray-400 stroke-3" />
+          <ChevronDown className="w-4 h-4 text-gray-400 stroke-3 hidden sm:block" />
         </div>
       </div>
     </header>

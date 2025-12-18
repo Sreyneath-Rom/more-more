@@ -1,4 +1,3 @@
-// src/components/items/ItemTabs.tsx
 "use client";
 
 import { CheckCircle2 } from "lucide-react";
@@ -13,15 +12,10 @@ interface ItemTabsProps {
   selectedCount: number;
 }
 
-export default function ItemTabs({
-  activeTab,
-  onTabChange,
-  selectedCount,
-}: ItemTabsProps) {
+export default function ItemTabs({ activeTab, onTabChange, selectedCount }: ItemTabsProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-6  bg-gray-100  sticky top-0 z-20 ">
-      {/* Tabs */}
-      <div className="flex items-center p-1 bg-gray-100 rounded-xl shadow-inner">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 bg-gray-100 sticky top-0 z-20 py-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 -mt-2">
+      <div className="flex items-center p-1 bg-gray-200/60 rounded-xl shadow-inner">
         {TABS.map((tab) => (
           <button
             key={tab}
@@ -39,7 +33,6 @@ export default function ItemTabs({
         ))}
       </div>
 
-      {/* Select Button - Shows only when items are selected */}
       {selectedCount > 0 && (
         <button className="flex items-center gap-2.5 px-6 py-2.5 text-xs font-bold text-gray-700 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
           <CheckCircle2 className="w-4 h-4 text-gray-500" />

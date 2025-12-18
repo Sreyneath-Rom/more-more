@@ -1,4 +1,3 @@
-// src/components/items/ItemSubNav.tsx
 type ViewType = "list" | "categories" | "tags" | "uom" | "attributes" | "library";
 
 interface ItemSubNavProps {

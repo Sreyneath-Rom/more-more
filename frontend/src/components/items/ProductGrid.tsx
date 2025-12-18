@@ -20,16 +20,13 @@ export default function ProductGrid({
 }: ProductGridProps) {
   const [selected, setSelected] = useState<string[]>([]);
 
-  // Notify parent of selection count
   useEffect(() => {
     onSelectedChange(selected.length);
   }, [selected.length, onSelectedChange]);
 
-  // Filter products based on active tab
   const filteredProducts = useMemo(() => {
     if (activeTab === "All") return products;
 
-    // Better matching: match tab name fragments
     const lowerTab = activeTab.toLowerCase();
     return products.filter((p) => {
       const name = p.name.toLowerCase();
@@ -37,13 +34,12 @@ export default function ProductGrid({
       return (
         name.includes(lowerTab) ||
         desc.includes(lowerTab) ||
-        lowerTab.includes("purchased") && name.includes("purchase") ||
-        lowerTab.includes("manufacture") && name.includes("make")
+        (lowerTab.includes("purchased") && name.includes("purchase")) ||
+        (lowerTab.includes("manufacture") && name.includes("make"))
       );
     });
   }, [activeTab]);
 
-  // Paginate (controlled externally)
   const paginated = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
     return filteredProducts.slice(start, start + itemsPerPage);
@@ -59,15 +55,20 @@ export default function ProductGrid({
     return (
       <div className="col-span-full text-center py-20">
         <p className="text-lg font-medium text-gray-500">No items found</p>
-        <p className="text-sm text-gray-400 mt-2">
-          Try changing the tab or adjusting filters
-        </p>
+        <p className="text-sm text-gray-400 mt-2">Try changing the tab or adjusting filters</p>
       </div>
     );
   }
 
   return (
-    <div className="grid mt-2 gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+    <div className="grid mt-6 gap-4 
+                    grid-cols-2 
+                    sm:grid-cols-3 
+                    md:grid-cols-4 
+                    lg:grid-cols-5 
+                    xl:grid-cols-6 
+                    2xl:grid-cols-7 
+                    3xl:grid-cols-8">
       {paginated.map((product) => (
         <ProductCard
           key={product.id}

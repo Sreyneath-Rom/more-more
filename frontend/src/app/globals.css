@@ -23,7 +23,6 @@
   }
 }
 
-/* Apply variables directly using arbitrary values (recommended in v4 for better performance) */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -44,10 +43,10 @@ body {
 .soft-inset {
   background: var(--card);
   box-shadow: var(--inset-shadow);
-  border-radius: 9999px; /* full pill shape */
+  border-radius: 9999px;
 }
 
-/* Pill buttons - using direct CSS variables where possible (no @apply needed) */
+/* Pill buttons */
 .btn-primary {
   background: black;
   color: white;
