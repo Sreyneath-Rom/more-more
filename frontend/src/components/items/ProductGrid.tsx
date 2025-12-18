@@ -1,61 +1,81 @@
 // src/components/items/ProductGrid.tsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { products } from "@/constants/products";
 import ProductCard from "./ProductCard";
-import Pagination from "@/components/ui/Pagination";
-
-const PAGE_SIZE = 15;
 
 interface ProductGridProps {
   activeTab: string;
+  currentPage: number;
+  itemsPerPage: number;
   onSelectedChange: (count: number) => void;
 }
 
-export default function ProductGrid({ activeTab, onSelectedChange }: ProductGridProps) {
-  const [page, setPage] = useState(1);
+export default function ProductGrid({
+  activeTab,
+  currentPage,
+  itemsPerPage,
+  onSelectedChange,
+}: ProductGridProps) {
   const [selected, setSelected] = useState<string[]>([]);
 
-  // Update parent when selection changes
-  useMemo(() => {
+  // Notify parent of selection count
+  useEffect(() => {
     onSelectedChange(selected.length);
   }, [selected.length, onSelectedChange]);
 
+  // Filter products based on active tab
   const filteredProducts = useMemo(() => {
     if (activeTab === "All") return products;
-    const term = activeTab.toLowerCase().replace(" ", "");
-    return products.filter(p => p.name.toLowerCase().includes(term));
+
+    // Better matching: match tab name fragments
+    const lowerTab = activeTab.toLowerCase();
+    return products.filter((p) => {
+      const name = p.name.toLowerCase();
+      const desc = (p.desc || "").toLowerCase();
+      return (
+        name.includes(lowerTab) ||
+        desc.includes(lowerTab) ||
+        lowerTab.includes("purchased") && name.includes("purchase") ||
+        lowerTab.includes("manufacture") && name.includes("make")
+      );
+    });
   }, [activeTab]);
 
-  const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE);
-  const paginated = filteredProducts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // Paginate (controlled externally)
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(start, start + itemsPerPage);
+  }, [filteredProducts, currentPage, itemsPerPage]);
 
   const toggleSelect = (id: string) => {
-    setSelected(prev =>
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
-    setPage(1); // Optional: reset page on selection
   };
 
-  return (
-    <>
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {paginated.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            selected={selected.includes(product.id)}
-            onSelect={() => toggleSelect(product.id)}
-          />
-        ))}
+  if (paginated.length === 0) {
+    return (
+      <div className="col-span-full text-center py-20">
+        <p className="text-lg font-medium text-gray-500">No items found</p>
+        <p className="text-sm text-gray-400 mt-2">
+          Try changing the tab or adjusting filters
+        </p>
       </div>
+    );
+  }
 
-      {totalPages > 1 && (
-        <div className="mt-10 pt-6 border-t border-gray-100">
-          <Pagination page={page} totalPages={totalPages} onChange={setPage} />
-        </div>
-      )}
-    </>
+  return (
+    <div className="grid mt-2 gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      {paginated.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          selected={selected.includes(product.id)}
+          onSelect={() => toggleSelect(product.id)}
+        />
+      ))}
+    </div>
   );
 }

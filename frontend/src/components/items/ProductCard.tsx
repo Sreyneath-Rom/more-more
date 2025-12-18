@@ -18,7 +18,7 @@ export default function ProductCard({ product, selected, onSelect }: ProductCard
     <div
       onClick={onSelect}
       className={`
-        group relative flex items-center p-4 gap-4 bg-white rounded-2xl border transition-all duration-200 cursor-pointer
+        group relative flex items-center p-4 gap-2 bg-white rounded-2xl border transition-all duration-200 cursor-pointer
         ${selected 
           ? "border-blue-500 ring-2 ring-blue-100 shadow-md" 
           : "border-gray-100 hover:border-gray-300 hover:shadow-lg"

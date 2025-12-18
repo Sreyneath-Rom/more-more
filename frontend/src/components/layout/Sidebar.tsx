@@ -1,21 +1,40 @@
 // src/components/layout/Sidebar.tsx
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  ShoppingBag, Package, MapPin, DollarSign, Tag,
-  Users, Building2, Truck, UserSquare2, UserCheck,
-  Wallet, CreditCard, TrendingUp, TrendingDown,
-  FileText, Receipt, BarChart3,
-  ChevronDown, MessageCircle, Monitor, Headphones, Clock, WalletCards
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+  ShoppingBag,
+  Package,
+  MapPin,
+  DollarSign,
+  Tag,
+  Users,
+  Building2,
+  Truck,
+  UserSquare2,
+  UserCheck,
+  Wallet,
+  CreditCard,
+  TrendingUp,
+  TrendingDown,
+  FileText,
+  Receipt,
+  BarChart3,
+  ChevronDown,
+  MessageCircle,
+  Monitor,
+  Headphones,
+  Clock,
+  WalletCards,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Sidebar() {
   const [expandedSections, setExpandedSections] = useState<string[]>([
-    'PRODUCT & SERVICE',
-    // 'PEOPLE', 'MONEY', 'REPORTS' — uncomment if you want them expanded by default
+    "PRODUCT & SERVICE",
   ]);
+
+  const [activeItem, setActiveItem] = useState<string>("Items");
 
   const toggleSection = (title: string) => {
     setExpandedSections((prev) =>
@@ -27,7 +46,7 @@ export default function Sidebar() {
     {
       title: "PRODUCT & SERVICE",
       items: [
-        { icon: ShoppingBag, label: "Items", active: true },
+        { icon: ShoppingBag, label: "Items" },
         { icon: Package, label: "Inventories", badge: true },
         { icon: MapPin, label: "Locations" },
         { icon: DollarSign, label: "Price Setting" },
@@ -49,25 +68,35 @@ export default function Sidebar() {
       items: [
         { icon: Wallet, label: "Assets" },
         { icon: CreditCard, label: "Liabilities" },
-        { icon: TrendingUp, label: "Incomes", badge: true },
+        { icon: TrendingUp, label: "Income" },
         { icon: TrendingDown, label: "Expenses" },
+        { icon: FileText, label: "Taxes" },
       ],
     },
     {
       title: "REPORTS",
       items: [
-        { icon: FileText, label: "End Of Day" },
-        { icon: Receipt, label: "Sale" },
-        { icon: BarChart3, label: "Finance" },
+        { icon: Receipt, label: "Sales Reports" },
+        { icon: BarChart3, label: "Analytics" },
+        { icon: FileText, label: "Audit Logs" },
       ],
     },
   ];
 
+  const isSectionExpanded = (title: string) => expandedSections.includes(title);
+
+  const handleItemClick = (label: string) => {
+    setActiveItem(label);
+    // Ready for future routing:
+    // const router = useRouter();
+    // router.push(`/dashboard/${label.toLowerCase().replace(" ", "-")}`);
+  };
+
   return (
-    <aside className="hidden lg:flex w-70 flex-col bg-gray-100h-screen sticky top-0 z-40">
+    <aside className="hidden lg:flex w-72 flex-col bg-gray-100h-screen sticky top-0 z-40">
       {/* Top Decorative Shapes */}
-      <div className="p-8 pb-6 shadow-inner bg-white ">
-        <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="p-8 pb-6 bg-gray-100 ">
+        <div className="flex flex-wrap gap-3 justify-center mb-8 shadow-inner shadow-gray-200 p-4 rounded-2xl bg-white">
           <div className="w-14 h-14 bg-green-500 backdrop-blur rounded-t-full rounded-bl-full shadow-inner" />
           <div className="w-14 h-14 bg-blue-400 backdrop-blur rounded-br-full rounded-tl-full shadow-inner" />
           <div className="w-14 h-14 bg-yellow-500 backdrop-blur rounded-full shadow-inner" />
@@ -78,45 +107,39 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 overflow-y-auto scrollbar-thin">
+      <nav className="flex-1 overflow-y-auto py-4">
         {sections.map((section) => (
-          <div key={section.title} className="mb-6">
+          <div key={section.title} className="mb-2">
             <button
               onClick={() => toggleSection(section.title)}
-              className="flex w-full items-center justify-between text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2 px-3 hover:text-gray-600 transition"
+              className="w-full px-6 py-3 flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider hover:text-gray-700 transition"
             >
-              {section.title}
+              <span>{section.title}</span>
               <ChevronDown
                 className={cn(
                   "w-4 h-4 transition-transform duration-200",
-                  expandedSections.includes(section.title) && "rotate-180"
+                  isSectionExpanded(section.title) && "rotate-180"
                 )}
               />
             </button>
 
-            {expandedSections.includes(section.title) && (
-              <ul className="space-y-1">
+            {isSectionExpanded(section.title) && (
+              <ul>
                 {section.items.map((item) => (
                   <li key={item.label}>
                     <button
+                      onClick={() => handleItemClick(item.label)}
                       className={cn(
-                        'flex w-full items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
-                        item.active
-                          ? 'bg-gray-900 text-white shadow-lg shadow-gray-200'
-                          : 'text-gray-600 hover:bg-gray-50'
+                        "w-full px-6 py-3 flex items-center gap-3 text-sm font-medium transition-all relative",
+                        activeItem === item.label
+                          ? "text-[#F97316] bg-orange-50 border-r-4 border-[#F97316]"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                       )}
                     >
-                      <div className="flex items-center gap-3">
-                        <item.icon
-                          className={cn(
-                            "w-4 h-4",
-                            item.active ? "text-gray-300" : "text-gray-400"
-                          )}
-                        />
-                        <span>{item.label}</span>
-                      </div>
+                      <item.icon className="w-5 h-5" />
+                      <span>{item.label}</span>
                       {item.badge && (
-                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                        <span className="absolute right-6 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                       )}
                     </button>
                   </li>
@@ -130,28 +153,25 @@ export default function Sidebar() {
       {/* Bottom Action Bar */}
       <div className="p-4 bg-white border-t border-gray-100">
         <div className="flex items-center justify-between gap-2">
-          {/* Chat Button */}
           <button className="w-12 h-12 flex items-center justify-center bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition relative">
             <MessageCircle className="w-5 h-5 fill-current" />
-            <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+            <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
           </button>
 
-          {/* Center Pill */}
           <div className="flex-1 h-12 bg-gray-100 rounded-full flex items-center justify-evenly px-2">
             <button className="p-2 text-gray-500 hover:text-black transition">
               <Monitor className="w-4 h-4" />
             </button>
-            <div className="w-px h-4 bg-gray-300"></div>
+            <div className="w-px h-4 bg-gray-300" />
             <button className="p-2 text-gray-500 hover:text-black transition">
               <Headphones className="w-4 h-4" />
             </button>
-            <div className="w-px h-4 bg-gray-300"></div>
+            <div className="w-px h-4 bg-gray-300" />
             <button className="p-2 text-gray-500 hover:text-black transition">
               <Clock className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Wallet Button */}
           <button className="w-12 h-12 flex items-center justify-center bg-emerald-700 text-white rounded-full hover:bg-emerald-800 transition shadow-lg shadow-emerald-200">
             <WalletCards className="w-5 h-5" />
           </button>

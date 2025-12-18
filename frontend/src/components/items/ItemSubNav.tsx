@@ -1,5 +1,12 @@
 // src/components/items/ItemSubNav.tsx
-export default function ItemSubNav({ activeView, setView }: { activeView: string, setView: (v: string) => void }) {
+type ViewType = "list" | "categories" | "tags" | "uom" | "attributes" | "library";
+
+interface ItemSubNavProps {
+  activeView: ViewType;
+  setView: (v: ViewType) => void;
+}
+
+export default function ItemSubNav({ activeView, setView }: ItemSubNavProps) {
   const tabs = [
     { id: "list", label: "Item List" },
     { id: "categories", label: "Categories" },
@@ -7,7 +14,7 @@ export default function ItemSubNav({ activeView, setView }: { activeView: string
     { id: "uom", label: "Unit of Measure" },
     { id: "attributes", label: "Custom Attributes" },
     { id: "library", label: "Image Library" },
-  ];
+  ] as const;
 
   return (
     <div className="flex items-center gap-8 border-b border-gray-100 overflow-x-auto hide-scrollbar mb-6">
